@@ -91,6 +91,10 @@ router.delete("/:delId",auth, async(req,res) => {
     else{
       data = await BooksModel.deleteOne({_id:delId,user_id:req.tokenData._id})
     }
+
+    if (data.deletedCount === 0) {
+      return res.status(403).json({ msg: "Unauthorized to delete this book" });
+    }
     res.json(data);
   }
   catch(err){
