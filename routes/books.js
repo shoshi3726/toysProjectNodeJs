@@ -5,7 +5,7 @@ const {BooksModel,validateBook} = require("../models/bookModel")
 const router = express.Router();
 
 router.get("/" , async(req,res)=> {
-  let perPage = req.query.perPage || 7;
+  let perPage = req.query.perPage || 10;
   let page = req.query.page || 1;
 
   try{
@@ -21,12 +21,32 @@ router.get("/" , async(req,res)=> {
   }
 })
 
+router.get("/single/:idBook" , async(req,res)=> {
+  try{
+    let idBook = req.params.idBook
+    let data = await BooksModel.findOne({_id:idBook})
+    res.json(data);
+  }
+  catch(err){
+    console.log(err)
+    res.status(500).json({msg:"err",err})
+  }
+})
+
 router.get("/search",async(req,res) => {
+  let perPage = req.query.perPage || 10;
+  let page = req.query.page || 1;
   try{
     let queryS = req.query.s;
     let searchReg = new RegExp(queryS,"i")
-    let data = await BooksModel.find({name:searchReg})
-    .limit(50)
+    let data = await BooksModel.find({
+      $or: [
+        { name: searchReg },
+        { info: searchReg }
+      ]
+    })
+    .limit(perPage)
+    .skip((page - 1) * perPage)
     res.json(data);
   }
   catch(err){
@@ -34,6 +54,49 @@ router.get("/search",async(req,res) => {
     res.status(500).json({msg:"there error try again later",err})
   }
 })
+
+
+router.get("/category/:catName",async(req,res) => {
+  let perPage = req.query.perPage || 10;
+  let page = req.query.page || 1;
+  try{
+    let cat = req.params.catName;
+
+    let data = await BooksModel.find({category:cat})
+    .limit(perPage)
+    .skip((page - 1) * perPage)
+    res.json(data);
+  }
+  catch(err){
+    console.log(err);
+    res.status(500).json({msg:"there error try again later",err})
+  }
+})
+
+router.get("/prices", async (req, res) => {
+  let perPage = req.query.perPage || 10;
+  let page = req.query.page || 1;
+
+  let minPrice = parseFloat(req.query.min) || 0;
+  let maxPrice = parseFloat(req.query.max) || Infinity;
+
+  try {
+    let data = await BooksModel.find({
+      price: { $gte: minPrice, $lte: maxPrice }
+    })
+      .limit(perPage)
+      .skip((page - 1) * perPage)
+      .sort({ price: 1 }); 
+
+    res.json(data);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "There was an error. Please try again later.", err });
+  }
+});
+
+
 
 router.post("/", auth, async(req,res) => {
   let validBody = validateBook(req.body);
@@ -93,7 +156,7 @@ router.delete("/:delId",auth, async(req,res) => {
     }
 
     if (data.deletedCount === 0) {
-      return { msg: "Unauthorized to delete this book" };
+      return res.status(403).json({ msg: "Unauthorized to delete this book" });
     }
     res.json(data);
   }
