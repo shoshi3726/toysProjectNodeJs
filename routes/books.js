@@ -93,7 +93,7 @@ router.delete("/:delId",auth, async(req,res) => {
     }
 
     if (data.deletedCount === 0) {
-      return res.status(403).json({ msg: "Unauthorized to delete this book" });
+      return { msg: "Unauthorized to delete this book" };
     }
     res.json(data);
   }
