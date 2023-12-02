@@ -131,6 +131,9 @@ router.put("/:editId",auth, async(req,res) => {
     else{
        data = await BooksModel.updateOne({_id:editId,user_id:req.tokenData._id},req.body)
     }
+    if (data.modifiedCount === 0) {
+      return res.status(403).json({ msg: "Unauthorized to edit this book" });
+    }
     res.json(data);
   }
   catch(err){
@@ -146,8 +149,7 @@ router.delete("/:delId",auth, async(req,res) => {
   try{
     let delId = req.params.delId;
     let data;
-    // אם אדמין יכול למחוק כל רשומה אם לא בודק שהמשתמש
-    // הרשומה היוזר איי די שווה לאיי די של המשתמש
+   
     if(req.tokenData.role == "admin"){
       data = await BooksModel.deleteOne({_id:delId})
     }

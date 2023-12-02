@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Books API Documentation</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-4">
+
+  <h1 class="mb-4">Books API Documentation</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>URL</th>
+        <th>Body</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>GET</td>
+        <td><a href="https://books-nodejs-project.onrender.com/books" target="_blank">/books</a></td>
+        <td></td>
+        <td>Get all books</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td><a href="https://books-nodejs-project.onrender.com/books?perPage=3&page=2" target="_blank">/books?perPage=3&page=2</a></td>
+        <td></td>
+        <td>Get books with pagination</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td><a href="https://books-nodejs-project.onrender.com/books" target="_blank">/books</a></td>
+        <td>{ "name": "Book Name", "category": "Category", "author": "Author", "info": "Book Info", "price": 29.99 }</td>
+        <td>Insert new book</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td><a href="https://books-nodejs-project.onrender.com/users" target="_blank">/users</a></td>
+        <td>{ "name": "User Name", "email": "user@example.com", "password": "password" }</td>
+        <td>Insert new user</td>
+      </tr>
+      <tr>
+        <td>POST</td>
+        <td><a href="https://books-nodejs-project.onrender.com/users/login" target="_blank">/users/login</a></td>
+        <td>{ "email": "user@example.com", "password": "password" }</td>
+        <td>Login</td>
+      </tr>
+      <tr>
+        <td>GET</td>
+        <td><a href="https://books-nodejs-project.onrender.com/users/usersList" target="_blank">/users/usersList</a></td>
+        <td></td>
+        <td>Get all users list (admin only)</td>
+      </tr>
+      <tr>
+        <td>DELETE</td>
+        <td><a href="https://books-nodejs-project.onrender.com/books/6569121039b9b242ebddae57" target="_blank">/books/6569121039b9b242ebddae57</a></td>
+        <td></td>
+        <td>Delete book (admin or creator only)</td>
+      </tr>
+      <tr>
+        <td>PUT</td>
+        <td><a href="https://books-nodejs-project.onrender.com/books/6569109e39b9b242ebddae51" target="_blank">/books/6569109e39b9b242ebddae51</a></td>
+        <td>{ "name": "Updated Book Name", "category": "Updated Category", "author": "Updated Author", "info": "Updated Book Info", "price": 39.99 }</td>
+        <td>Edit book (user creator or admin only)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Bootstrap JS and Popper.js (optional) -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
