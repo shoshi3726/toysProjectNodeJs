@@ -131,7 +131,7 @@ router.put("/:editId",auth, async(req,res) => {
     else{
        data = await BooksModel.updateOne({_id:editId,user_id:req.tokenData._id},req.body)
     }
-    if (data.modifiedCount === 0) {
+    if (data.modifiedCount == 0) {
       return res.status(403).json({ msg: "Unauthorized to edit this book" });
     }
     res.json(data);
@@ -157,7 +157,7 @@ router.delete("/:delId",auth, async(req,res) => {
       data = await BooksModel.deleteOne({_id:delId,user_id:req.tokenData._id})
     }
 
-    if (data.deletedCount === 0) {
+    if (data.deletedCount == 0) {
       return res.status(403).json({ msg: "Unauthorized to delete this book" });
     }
     res.json(data);

@@ -19,6 +19,57 @@ router.get("/myInfo", auth, async (req, res) => {
   }
 })
 
+router.put("/:idEdit", auth, async (req, res) => {
+  let idEdit = req.params.idEdit;
+  let validBody = userValid(req.body);
+  if (validBody.error) {
+    return res.status(400).json(validBody.error.details);
+  }
+  try{
+
+    let data;
+    if (req.tokenData._role == "admin") {
+      req.body.password = await bcrypt.hash(req.body.password, 10)
+
+      data = await UserModel.updateOne({ _id: idEdit }, req.body);
+    }
+    else if (idEdit == req.tokenData.user_id) {
+      req.body.password = await bcrypt.hash(req.body.password, 10)
+
+      data = await UserModel.updateOne({ _id: idEdit }, req.body);
+    }
+    else {
+      data = [{ status: "failed", msg: "You are trying to do an operation that is not enabled!" }]
+    }
+    res.json(data);
+
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ err })
+  }
+})
+
+router.delete("/:delId", auth, async (req, res) => {
+  try {
+    let delId = req.params.delId;
+    let data;
+    if (req.tokenData.role == "admin") {
+      data = await UserModel.deleteOne({ _id: delId })
+    }
+    else {
+      data = await UserModel.deleteOne({ _id: delId, user_id: req.tokenData._id })
+    }
+    if (data.deletedCount == 0)
+      res.json({ msg: "not valid id or you are not allowed to erase. nothing was erased" })
+    else res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "wasnt able to delete", err })
+  }
+})
+
 
 
 router.get("/usersList", authAdmin, async (req, res) => {

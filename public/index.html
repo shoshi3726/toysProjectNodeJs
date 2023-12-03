@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Pacifico&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Pacifico&display=swap');
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="index.css">
+    <title>BOOKS API</title>
+</head>
+
+<body class="fw-bolder">
+    <main class="container-fluid pb-4">
+        <div class="container">
+            <div class="py-5">
+                <div class="d-flex pic">
+                    <h1><b>BOOKS API</b></h1>
+                </div>
+            </div>
+            <div id="book_id" class="text-center book_id">
+                <h2 class="display-4 text-center pb-3">
+                    <span class="fw-bolder ">Books Routes</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="container table-responsive p-2 ">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" scope="col">Method</th>
+                        <th class="text-center" scope="col">URL</th>
+                        <th class="text-center" scope="col">Body</th>
+                        <th class="text-center" scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>GET</td>
+                        <td><a href="https://books-nodejs-project.onrender.com/books" target="_blank">/books</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get a list of all books.
+                            <h6>Optional queries:</h6>
+                            <li><strong>perPage :</strong> you can select the amount of obj per one page.</li>
+                            <li><strong>page :</strong> you can select the num of pages you want.</li>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td><a href="https://books-nodejs-project.onrender.com/books?perPage=3&page=2"
+                                target="_blank">/books?perPage=3&page=2</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get books with pagination. Specify perPage and page numbers as query parameters.</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/books/single/{book_id}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get single book by his ID.</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/books/search/?{search word}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get searched book, by its name or info, optional to add number of books perpage and page
+                            number</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/books/category/{catName}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get books by category, optional to add number of books perpage and page number</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/books/prices/?{min=min_limit}&?{max=max_limit}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get books by category, optional to add number of books perpage and page number</td>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td>/books</a></td>
+                        <td>
+                            <pre>
+                                {
+                                    name: String,
+                                    category: String,
+                                    author: String,
+                                    info: String,
+                                    price: Number,
+                                    image: String
+                                }                                
+                          </pre>
+                        </td>
+                        <td>Insert a new book, You need a token for this query.</td>
+                    </tr>
+                    <tr>
+                        <td>DELETE</td>
+                        <td>/books/{book_id}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Delete a book. Only accessible to the creator or admin.</td>
+                    </tr>
+                    <tr>
+                        <td>PUT</td>
+                        <td>/books/{book_id}</a></td>
+                        <td>
+                            <pre>
+                                {
+                                    name: String,
+                                    category: String,
+                                    author: String,
+                                    info: String,
+                                    price: Number,
+                                    image: String
+                                }  
+                            </pre>
+                        </td>
+                        <td>Edit a book. Only accessible to the creator user or admin.</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container table-responsive p-2 ">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center" scope="col">Method</th>
+                        <th class="text-center" scope="col">URL</th>
+                        <th class="text-center" scope="col">Body</th>
+                        <th class="text-center" scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                
+                    <tr>
+                        <td>GET</td>
+                        <td>/users/myInfo</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get user information. Only accessible to the creator user or admin</td>
+                    </tr>
+                    <tr>
+                        <td>PUT</td>
+                        <td>/users/{idEdit}</a></td>
+                        <td>
+                            <pre>
+                                {
+                                    name: String,
+                                    email: String,
+                                    password: String
+                                }  
+                                        </pre>
+                        </td>
+                        <td>Update user information. Requires a valid token. Only accessible to the creator user or admin</td>
+                    </tr>
+                    <tr>
+                        <td>DELETE</td>
+                        <td>/users/{delId}</a></td>
+                        <td class="text-center">none</td>
+                        <td>Delete a user. Requires a valid token. Only accessible to the creator user or admin</td>
+                    </tr>
+                    <tr>
+                        <td>GET</td>
+                        <td>/users/usersList</a></td>
+                        <td class="text-center">none</td>
+                        <td>Get a list of all users.  Requires a valid token of admin.</td>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td>/users</a></td>
+                        <td>
+                            <pre>
+                            {
+                                name: String,
+                                email: String,
+                                password: String
+                            }                                
+                                    </pre>
+                        </td>
+                        <td>Create a new user.</td>
+                    </tr>
+                    <tr>
+                        <td>POST</td>
+                        <td>/users/login</a></td>
+                        <td>
+                            <pre>
+                                {
+                                    email: String,
+                                    password: String
+                                } 
+                            </pre>
+                        </td>
+                        <td>Login and get a token.</td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- js connect -->
+    <script src="index.js"></script>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
